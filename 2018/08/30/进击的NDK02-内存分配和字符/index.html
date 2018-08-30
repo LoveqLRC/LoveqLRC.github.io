@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NDK," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="约定了去爬山，奈何每次遇上下雨，今天终于成行了😏😏">
+<meta name="keywords" content="NDK">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进击的NDK02-内存分配和字符">
+<meta property="og:url" content="http://yoursite.com/2018/08/30/进击的NDK02-内存分配和字符/index.html">
+<meta property="og:site_name" content="Rc在努力">
+<meta property="og:description" content="约定了去爬山，奈何每次遇上下雨，今天终于成行了😏😏">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/img/ui04.webp">
+<meta property="og:updated_time" content="2018-08-30T02:22:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进击的NDK02-内存分配和字符">
+<meta name="twitter:description" content="约定了去爬山，奈何每次遇上下雨，今天终于成行了😏😏">
+<meta name="twitter:image" content="http://yoursite.com/img/ui04.webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/30/进击的NDK02-内存分配和字符/"/>
+
+
+
+
+
+  <title>进击的NDK02-内存分配和字符 | Rc在努力</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rc在努力</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/30/进击的NDK02-内存分配和字符/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rc在努力">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rc在努力">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">进击的NDK02-内存分配和字符</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T09:48:08+08:00">
+                2018-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NDK/" itemprop="url" rel="index">
+                    <span itemprop="name">NDK</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="/img/ui04.webp" rel="gallery_cjlfy303s0005rhu8vtpqox8t"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/img/ui04.webp" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p>约定了去爬山，奈何每次遇上下雨，今天终于成行了😏😏</p>
+<a id="more"></a>
+<h1 id="C语言内存分配："><a href="#C语言内存分配：" class="headerlink" title="C语言内存分配："></a>C语言内存分配：</h1><ul>
+<li>栈区(stack)<br><code>windows</code>下，栈内存分配2M（确定的常数），超出了限制，提示<code>stackoverflow</code>错误 。自动分配，释放。</li>
+<li>堆区(heap)<br>程序员需手动申请和分配释放，可使用的内存约是操作系统80%内存。</li>
+<li>全局区或静态区。</li>
+<li>字符常量区。</li>
+<li>程序代码区。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//静态内存分配</span></span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">1024</span> * <span class="number">1024</span> * <span class="number">10</span>];</span><br><span class="line">		</span><br><span class="line">	<span class="comment">//stack overflow错误，栈溢出</span></span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="静态分配和动态分配"><a href="#静态分配和动态分配" class="headerlink" title="静态分配和动态分配"></a>静态分配和动态分配</h1><ul>
+<li>静态内存分配，分配内存大小的是固定，这会带来：<ul>
+<li>很容易超出栈内存的最大值 </li>
+<li>为了防止内存不够用会开辟更多的内存，容易浪费内存</li>
+</ul>
+</li>
+<li>动态内存分配，在程序运行过程中，动态指定需要使用的内存大小，手动释放，释放之后这些内存还可以被重新使用（活水）。</li>
+</ul>
+<h2 id="创建一个数组，动态指定数组的大小"><a href="#创建一个数组，动态指定数组的大小" class="headerlink" title="创建一个数组，动态指定数组的大小"></a>创建一个数组，动态指定数组的大小</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//静态内存分配创建数组，数组的大小是固定的</span></span><br><span class="line">	<span class="comment">//int i = 10;</span></span><br><span class="line">	<span class="comment">//int a[i];//这样是不行的</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> len = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//动态开辟内存，大小len*4字节</span></span><br><span class="line">	<span class="keyword">int</span>* p = <span class="built_in">malloc</span>(len * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	<span class="comment">//p是数组的首地址，p就是数组的名称</span></span><br><span class="line">	<span class="comment">//给数组元素赋值（使用这一块刚刚开辟出来的内存区域）</span></span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (; i &lt; len ; i++)&#123;</span><br><span class="line">		p[i] = rand() ;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d,%#x\n"</span>, p[i], &amp;p[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//手动释放内存</span></span><br><span class="line">	<span class="built_in">free</span>(p);</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="重新分配内存"><a href="#重新分配内存" class="headerlink" title="重新分配内存"></a>重新分配内存</h1><p>重新分配内存的两种情况：</p>
+<ul>
+<li>缩小，缩小的那一部分数据会丢失。</li>
+<li>扩大，（连续的）<ul>
+<li>如果当前内存段后面有需要申请的内存空间，直接扩展这段内存空间，realloc返回原指针。</li>
+<li>如果当前内存段后面的空闲字节不够，那么就使用堆中的第一个能够满足这一要求的内存块，将目前的数据复制到新的位置，并将原来的数据库释放掉，返回新的内存地址。</li>
+<li>如果申请失败，返回NULL，原来的指针仍然有效</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = <span class="number">4</span>;<span class="comment">//第一次数组长度</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>* p = <span class="built_in">malloc</span>(len*<span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	<span class="comment">//int *p = calloc(len, sizeof(int)); 作用与malloc一样</span></span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> ( ;  i&lt; len; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		p[i] = rand() % <span class="number">200</span>;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d,%#x\n"</span>, p[i], &amp;p[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//内存不够用，扩大刚刚分配的内存空间</span></span><br><span class="line">	<span class="keyword">int</span> addLen = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//第一个参数，原来的内存指针</span></span><br><span class="line">	<span class="comment">//第二个，内存扩大后的总大小</span></span><br><span class="line">	<span class="keyword">int</span> *p2 = <span class="built_in">realloc</span>(p, <span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(len + addLen));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (p2 == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"重新分配失败"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//重新分配内存的两种情况：</span></span><br><span class="line">	<span class="comment">//缩小，缩小的那一部分数据会丢失</span></span><br><span class="line">	<span class="comment">//扩大，（连续的）</span></span><br><span class="line">	<span class="comment">//1.如果当前内存段后面有需要的内存空间，直接扩展这段内存空间，realloc返回原指针</span></span><br><span class="line">	<span class="comment">//2.如果当前内存段后面的空闲字节不够，那么就使用堆中的第一个能够满足这一要求的内存块，将目前的数据复制到新的位置，并将原来的数据库释放掉，返回新的内存地址</span></span><br><span class="line">	<span class="comment">//3.如果申请失败，返回NULL，原来的指针仍然有效</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//重新赋值</span></span><br><span class="line"></span><br><span class="line">	i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (; i &lt; len + addLen; i++)&#123;</span><br><span class="line">		p2[i] = rand() % <span class="number">200</span>;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d,%#x\n"</span>, p2[i], &amp;p2[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//手动释放内存</span></span><br><span class="line">	<span class="keyword">if</span> (p != <span class="literal">NULL</span>)&#123;</span><br><span class="line">		<span class="built_in">free</span>(p);</span><br><span class="line">		p = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (p2 != <span class="literal">NULL</span>)&#123;</span><br><span class="line">		<span class="built_in">free</span>(p2);</span><br><span class="line">		p2 = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	getchar();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="内存分配的几个注意细节"><a href="#内存分配的几个注意细节" class="headerlink" title="内存分配的几个注意细节"></a>内存分配的几个注意细节</h1><ul>
+<li>不能多次释放。</li>
+<li>释放完之后（指针仍然有值），给指针置NULL，标志释放完成。</li>
+<li>内存泄露（p重新赋值之后，再free，并没有真正释放内存）。</li>
+</ul>
+<h1 id="字符数组存储字符串"><a href="#字符数组存储字符串" class="headerlink" title="字符数组存储字符串"></a>字符数组存储字符串</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//char str[] = &#123; 'c', 'h', 'i', 'n', 'a', '\0' &#125;;</span></span><br><span class="line">	<span class="comment">//char str[6] = &#123; 'c', 'h', 'i', 'n', 'a' &#125;;</span></span><br><span class="line">	<span class="keyword">char</span> str[<span class="number">10</span>] = <span class="string">"china"</span>;</span><br><span class="line">	<span class="comment">//可以修改</span></span><br><span class="line">	str[<span class="number">0</span>] = <span class="string">'s'</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, str);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%#x\n"</span>, str);</span><br><span class="line">	getchar();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="字符指针"><a href="#字符指针" class="headerlink" title="字符指针"></a>字符指针</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//内存连续排列</span></span><br><span class="line">	<span class="keyword">char</span> *str = <span class="string">"how are you?"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//不可以修改</span></span><br><span class="line">	<span class="comment">//str += 1;</span></span><br><span class="line">	<span class="comment">//*str = 'y';</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, str);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%#x\n"</span>, str);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//使用指针加法，截取字符串</span></span><br><span class="line">	str += <span class="number">3</span>;</span><br><span class="line">	<span class="keyword">while</span> (*str)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c"</span>,*str);</span><br><span class="line">		str++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n结束了"</span>);</span><br><span class="line">	getchar();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="strcat字符串拼接函数"><a href="#strcat字符串拼接函数" class="headerlink" title="strcat字符串拼接函数"></a>strcat字符串拼接函数</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> dest[<span class="number">50</span>];	</span><br><span class="line">	<span class="keyword">char</span> *a = <span class="string">"china"</span>;</span><br><span class="line">	<span class="keyword">char</span> *b = <span class="string">" is powerful!"</span>;</span><br><span class="line">	<span class="built_in">strcpy</span>(dest, a);</span><br><span class="line">	<span class="built_in">strcat</span>(dest, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, dest);</span><br><span class="line"></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="strchr在一个串中查找给定字符的第一个匹配之处"><a href="#strchr在一个串中查找给定字符的第一个匹配之处" class="headerlink" title="strchr在一个串中查找给定字符的第一个匹配之处"></a>strchr在一个串中查找给定字符的第一个匹配之处</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> *str = <span class="string">"I want go to USA!"</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%#x\n"</span>, str);</span><br><span class="line">	<span class="comment">//U元素的指针</span></span><br><span class="line">	<span class="comment">//str+3</span></span><br><span class="line">	<span class="keyword">char</span>* p = <span class="built_in">strchr</span>(str, <span class="string">'w'</span>);</span><br><span class="line">	<span class="keyword">if</span> (p)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"索引位置：%d\n"</span>, p - str);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"没有找到"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NDK/" rel="tag"># NDK</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/22/NDK-Day01/" rel="next" title="进击的NDK01-基本数据类型和指针">
+                <i class="fa fa-chevron-left"></i> 进击的NDK01-基本数据类型和指针
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODQ5Mi8xNTAyMA"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Rc在努力</p>
+              <p class="site-description motion-element" itemprop="description">彷徨 呐喊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C语言内存分配："><span class="nav-number">1.</span> <span class="nav-text">C语言内存分配：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#静态分配和动态分配"><span class="nav-number">2.</span> <span class="nav-text">静态分配和动态分配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个数组，动态指定数组的大小"><span class="nav-number">2.1.</span> <span class="nav-text">创建一个数组，动态指定数组的大小</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重新分配内存"><span class="nav-number">3.</span> <span class="nav-text">重新分配内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存分配的几个注意细节"><span class="nav-number">4.</span> <span class="nav-text">内存分配的几个注意细节</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符数组存储字符串"><span class="nav-number">5.</span> <span class="nav-text">字符数组存储字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符指针"><span class="nav-number">6.</span> <span class="nav-text">字符指针</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#strcat字符串拼接函数"><span class="nav-number">7.</span> <span class="nav-text">strcat字符串拼接函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#strchr在一个串中查找给定字符的第一个匹配之处"><span class="nav-number">8.</span> <span class="nav-text">strchr在一个串中查找给定字符的第一个匹配之处</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rc在努力</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="2018年07月30日，拍摄于黄浦区文化馆外。">
+<meta name="description" content="2018年07月30日，拍摄于黄浦区文化馆外。雨后的🌈很漂亮。">
 <meta name="keywords" content="NDK">
 <meta property="og:type" content="article">
 <meta property="og:title" content="进击的NDK03-结构体">
 <meta property="og:url" content="http://yoursite.com/2018/08/31/进击的NDK03-结构体/index.html">
 <meta property="og:site_name" content="Rc在努力">
-<meta property="og:description" content="2018年07月30日，拍摄于黄浦区文化馆外。">
+<meta property="og:description" content="2018年07月30日，拍摄于黄浦区文化馆外。雨后的🌈很漂亮。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/img/ui05.webp">
-<meta property="og:updated_time" content="2018-08-31T09:15:54.000Z">
+<meta property="og:updated_time" content="2018-08-31T09:20:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="进击的NDK03-结构体">
-<meta name="twitter:description" content="2018年07月30日，拍摄于黄浦区文化馆外。">
+<meta name="twitter:description" content="2018年07月30日，拍摄于黄浦区文化馆外。雨后的🌈很漂亮。">
 <meta name="twitter:image" content="http://yoursite.com/img/ui05.webp">
 
 
@@ -327,7 +327,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="/img/ui05.webp" rel="gallery_cjlhsa5tp00064cu8txdwy7tc"
+                 href="/img/ui05.webp" rel="gallery_cjlhsh4mv00064xu8tuwdta6f"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="/img/ui05.webp" itemprop="contentUrl"/>
               </a>
@@ -340,7 +340,7 @@
       
 
       
-        <p>2018年07月30日，拍摄于黄浦区文化馆外。<br><a id="more"></a></p>
+        <p>2018年07月30日，拍摄于黄浦区文化馆外。雨后的🌈很漂亮。<br><a id="more"></a></p>
 <h1 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h1><p>结构体是一种构造数据类型，把不同的数据类型整合起来成为一个自定义的数据类型</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Man</span>&#123;</span></span><br><span class="line">	<span class="comment">//成员</span></span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="comment">//int(*func)();</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//初始化结构体的变量</span></span><br><span class="line">	<span class="comment">//1.</span></span><br><span class="line">	<span class="comment">//struct Man m1 = &#123;"Jack", 21&#125;;</span></span><br><span class="line">	<span class="comment">//2.</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Man</span> <span class="title">m1</span>;</span></span><br><span class="line">	m1.age = <span class="number">23</span>;</span><br><span class="line">	<span class="comment">//m1.name = "Rose";</span></span><br><span class="line">	<span class="built_in">strcpy</span>(m1.name,<span class="string">"rose"</span>);</span><br><span class="line">	<span class="built_in">sprintf</span>(m1.name,<span class="string">"Jason"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//类似JavaScript字面量赋值，只能在变量声明时赋值</span></span><br><span class="line">	<span class="comment">//m1 = &#123;&#125;;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Man</span> <span class="title">m2</span> = <span class="title">m1</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s,%d\n"</span>,m1.name,m1.age);</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="结构体的几种写法"><a href="#结构体的几种写法" class="headerlink" title="结构体的几种写法"></a>结构体的几种写法</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Man</span>&#123;</span></span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">&#125; m1, m2 = &#123;<span class="string">"jack"</span>,<span class="number">20</span>&#125;; <span class="comment">//m1结构体变量名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//typedef int Age;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">strcpy</span>(m1.name,<span class="string">"Jack"</span>);</span><br><span class="line">	m1.age = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s,%d\n"</span>, m2.name, m2.age);</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Swift," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="心中有盏红绿灯">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift语法--基础部分">
+<meta property="og:url" content="http://yoursite.com/2018/09/20/Swift读书笔记--基本部分/index.html">
+<meta property="og:site_name" content="Rc在努力">
+<meta property="og:description" content="心中有盏红绿灯">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/img/06.jpg">
+<meta property="og:updated_time" content="2018-09-20T09:42:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift语法--基础部分">
+<meta name="twitter:description" content="心中有盏红绿灯">
+<meta name="twitter:image" content="http://yoursite.com/img/06.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/20/Swift读书笔记--基本部分/"/>
+
+
+
+
+
+  <title>Swift语法--基础部分 | Rc在努力</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rc在努力</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我，在这里，享受等你的时光。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/20/Swift读书笔记--基本部分/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rc在努力">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rc在努力">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Swift语法--基础部分</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-20T10:34:19+08:00">
+                2018-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="/img/06.jpg" rel="gallery_cjmae6z5g0001h5u8aiqsztxy"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/img/06.jpg" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <blockquote>
+<p>心中有盏红绿灯</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="基础部分"><a href="#基础部分" class="headerlink" title="基础部分"></a>基础部分</h1><p><code>Swift</code>包含了<code>c</code>和<code>Objective-C</code>上所有基础数据类型，<code>Int</code>表示整形值；<code>Double</code>和<code>Float</code>表示浮点型值；<code>Bool</code>是布尔值；<code>String</code>是文本型数据。<code>Swift</code>还提供了三个基本集合类<code>Array</code>,<code>Set</code>和<code>Dictionary</code>。<code>Swift</code> 还增加了 <code>Objective-C</code> 中没有的高阶数据类型比如元组（<code>Tuple</code>）。元组可以让创建或者传递一组数据，比如作为函数的返回值时，可以用一个元组可以返回多个值。</p>
+<h1 id="常量和变量"><a href="#常量和变量" class="headerlink" title="常量和变量"></a>常量和变量</h1><h2 id="生命常量和变量"><a href="#生命常量和变量" class="headerlink" title="生命常量和变量"></a>生命常量和变量</h2><p>使用</p>
+<ul>
+<li><em><code>let</code></em>来声明常量</li>
+<li><em><code>var</code></em>来声明变量</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> maximumNumberOfLoginAttempts = <span class="number">10</span></span><br><span class="line"><span class="keyword">var</span> currentLoginAttempt = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>可以在一行中声明多个常量或者多个变量，用逗号隔开<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">0.0</span> ,y = <span class="number">0.0</span> ,z =<span class="number">0.0</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="类型标注"><a href="#类型标注" class="headerlink" title="类型标注"></a>类型标注</h2><p>声明常量或者变量的时候可以加上类型标注（<code>type annotation</code>），说明常量或者变量中要存储的值的类型。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> welcomeMessage : <span class="type">String</span> <span class="comment">//表示这个变量可以存储String类型的值</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一般来说很少需要写类型标注。如果在声明常量或者变量的时候赋了一个初始值，<code>Swift</code>可以推断出这个常量或者变量的类型</p>
+</blockquote>
+<h2 id="输出常量和变量"><a href="#输出常量和变量" class="headerlink" title="输出常量和变量"></a>输出常量和变量</h2><p><code>Swift</code> 用字符串插值（<code>string interpolation</code>）的方式把常量名或者变量名当做占位符加入到长字符串中，<code>Swift</code> 会用当前常量或变量的值替换这些占位符。将常量或变量名放入圆括号中，并在开括号前使用反斜杠将其转义：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> welcomeMessage : <span class="type">String</span> <span class="comment">//表示这个变量可以存储String类型的值</span></span><br><span class="line"></span><br><span class="line">welcomeMessage = <span class="string">"Hello World"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"2018年09月20日09:38:54 \(welcomeMessage)"</span>)</span><br><span class="line"><span class="comment">//输出 “2018年09月20日09:38:54 Hello World”</span></span><br></pre></td></tr></table></figure>
+<h1 id="类型推断"><a href="#类型推断" class="headerlink" title="类型推断"></a>类型推断</h1><p>如果给一个新常量赋值42并且没有标明类型，<code>Swift</code> 可以推断出常量类型是<code>Int</code>，因为给它赋的初始值看起来像一个整数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> meaningOfLife = <span class="number">42</span></span><br><span class="line"><span class="comment">// meaningOfLife 会被推测为 Int 类型</span></span><br></pre></td></tr></table></figure>
+<p>如果没有给浮点字面量标明类型，<code>Swift</code> 会推断想要的是<code>Double</code><br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pi = <span class="number">3.14159</span></span><br><span class="line"><span class="comment">// pi 会被推测为 Double 类型</span></span><br></pre></td></tr></table></figure></p>
+<p>当推断浮点数的类型时，<code>Swift</code> 总是会选择<code>Double</code>而不是<code>Float</code>。</p>
+<p>如果表达式中同时出现了整数和浮点数，会被推断为<code>Double</code>类型：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> anotherPi = <span class="number">3</span> + <span class="number">0.14159</span></span><br><span class="line"><span class="comment">// anotherPi 会被推测为 Double 类型</span></span><br></pre></td></tr></table></figure>
+<h1 id="整数和浮点数转换"><a href="#整数和浮点数转换" class="headerlink" title="整数和浮点数转换"></a>整数和浮点数转换</h1><p>整数和浮点数的转换必须<em>显式</em>指定类型：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> three = <span class="number">3</span></span><br><span class="line"><span class="keyword">let</span> pointOneFourOneFiveNine = <span class="number">0.14159</span></span><br><span class="line"><span class="keyword">let</span> pi = <span class="type">Double</span>(three) + pointOneFourOneFiveNine</span><br><span class="line"><span class="comment">// pi 等于 3.14159，所以被推测为 Double 类型</span></span><br></pre></td></tr></table></figure>
+<p>常量three的值被用来创建一个Double类型的值，所以加号两边的数类型须相同。如果不进行转换，两者<em>无法相加</em>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> integerPi = <span class="type">Int</span>(pi)</span><br><span class="line"><span class="comment">// integerPi 等于 3，所以被推测为 Int 类型</span></span><br></pre></td></tr></table></figure>
+<p>当用这种方式来初始化一个新的整数值时，浮点值会被截断。也就是说<code>4.75</code>会变成<code>4</code>，<code>-3.9</code>会变成<code>-3</code>。</p>
+<h1 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h1><p>类型别名（<code>type aliases</code>）就是给现有类型定义另一个名字。</p>
+<p>当想要给现有类型起一个更有意义的名字时，类型别名非常有用。假设正在处理特定长度的外部资源的数据：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">AudioSample</span> = <span class="type">UInt16</span></span><br></pre></td></tr></table></figure>
+<p>定义了一个类型别名之后，可以在任何使用原始名的地方使用别名：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> maxAmplitudeFound = <span class="type">AudioSample</span>.<span class="built_in">min</span></span><br><span class="line"><span class="comment">// maxAmplitudeFound 现在是 0</span></span><br></pre></td></tr></table></figure>
+<p>AudioSample被定义为UInt16的一个别名。因为它是别名，AudioSample.min实际上是UInt16.min，所以会给maxAmplitudeFound赋一个初值0。</p>
+<h1 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h1><p>元组（<code>tuples</code>）把多个值组合成一个复合值。元组内的值可以是任意类型，并不要求是相同类型。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> http404Error = (<span class="number">404</span>, <span class="string">"Not Found"</span>)</span><br><span class="line"><span class="comment">// http404Error 的类型是 (Int, String)，值是 (404, "Not Found")</span></span><br></pre></td></tr></table></figure>
+<p>可以把任意顺序的类型组合成一个元组，这个元组可以包含所有类型。可以创建一个类型为(Int, Int, Int)或者(String, Bool)或者其他任何想要的组合的元组。</p>
+<p>可以将一个元组的内容分解（<code>decompose</code>）成单独的常量和变量，然后就可以正常使用它们了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> (statusCode, statusMessage) = http404Error</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"The status code is \(statusCode)"</span>)</span><br><span class="line"><span class="comment">// 输出 "The status code is 404"</span></span><br><span class="line"><span class="built_in">println</span>(<span class="string">"The status message is \(statusMessage)"</span>)</span><br><span class="line"><span class="comment">// 输出 "The status message is Not Found"</span></span><br></pre></td></tr></table></figure>
+<p>如果只需要一部分元组值，分解的时候可以把要忽略的部分用下划线（<code>_</code>）标记：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> (justTheStatusCode, <span class="number">_</span>) = http404Error</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"The status code is \(justTheStatusCode)"</span>)</span><br><span class="line"><span class="comment">// 输出 "The status code is 404"</span></span><br></pre></td></tr></table></figure>
+<p>此外，还可以通过下标来访问元组中的单个元素，下标从零开始：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println</span>(<span class="string">"The status code is \(http404Error.0)"</span>)</span><br><span class="line"><span class="comment">// 输出 "The status code is 404"</span></span><br><span class="line"><span class="built_in">println</span>(<span class="string">"The status message is \(http404Error.1)"</span>)</span><br><span class="line"><span class="comment">// 输出 "The status message is Not Found"</span></span><br></pre></td></tr></table></figure>
+<p>可以在定义元组的时候给单个元素命名：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> http200Status = (statusCode: <span class="number">200</span>, description: <span class="string">"OK"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>给元组中的元素命名后，可以通过名字来获取这些元素的值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println</span>(<span class="string">"The status code is \(http200Status.statusCode)"</span>)</span><br><span class="line"><span class="comment">// 输出 "The status code is 200"</span></span><br><span class="line"><span class="built_in">println</span>(<span class="string">"The status message is \(http200Status.description)"</span>)</span><br><span class="line"><span class="comment">// 输出 "The status message is OK"</span></span><br></pre></td></tr></table></figure>
+<p>作为函数返回值时，元组非常有用。一个用来获取网页的函数可能会返回一个(Int, String)元组来描述是否获取成功。和只能返回一个类型的值比较起来，一个包含两个不同类型值的元组可以让函数的返回信息更有用。</p>
+<h1 id="可选类型"><a href="#可选类型" class="headerlink" title="可选类型"></a>可选类型</h1><p>使用可选类型（<code>optionals</code>）来处理值可能缺失的情况。</p>
+<p><code>Swift</code> 的<code>String</code>类型有一个叫做<code>toInt</code>的方法，作用是将一个<code>String</code>值转换成一个<code>Int</code>值。然而，并不是所有的字符串都可以转换成一个整数。字符串<code>&quot;123&quot;</code>可以被转换成数字<code>123</code>，但是字符串<code>&quot;hello, world&quot;</code>不行。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> possibleNumber = <span class="string">"123"</span></span><br><span class="line"><span class="keyword">let</span> convertedNumber = possibleNumber.toInt()</span><br><span class="line"><span class="comment">// convertedNumber 被推测为类型 "Int?"， 或者类型 "optional Int"</span></span><br></pre></td></tr></table></figure>
+<p>因为<code>toInt</code>方法可能会失败，所以它返回一个可选类型（<code>optional</code>）<code>Int</code>，而不是一个<code>Int</code>。一个可选的<code>Int</code>被写作<code>Int?</code>而不是<code>Int</code>。问号暗示包含的值是可选类型，也就是说可能包含<code>Int</code>值也可能不包含值。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/31/进击的NDK03-结构体/" rel="next" title="进击的NDK03-结构体和联合体">
+                <i class="fa fa-chevron-left"></i> 进击的NDK03-结构体和联合体
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODQ5Mi8xNTAyMA"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Rc在努力</p>
+              <p class="site-description motion-element" itemprop="description">我，在这里，享受等你的时光。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础部分"><span class="nav-number">1.</span> <span class="nav-text">基础部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常量和变量"><span class="nav-number">2.</span> <span class="nav-text">常量和变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生命常量和变量"><span class="nav-number">2.1.</span> <span class="nav-text">生命常量和变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型标注"><span class="nav-number">2.2.</span> <span class="nav-text">类型标注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出常量和变量"><span class="nav-number">2.3.</span> <span class="nav-text">输出常量和变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类型推断"><span class="nav-number">3.</span> <span class="nav-text">类型推断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#整数和浮点数转换"><span class="nav-number">4.</span> <span class="nav-text">整数和浮点数转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类型别名"><span class="nav-number">5.</span> <span class="nav-text">类型别名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元组"><span class="nav-number">6.</span> <span class="nav-text">元组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可选类型"><span class="nav-number">7.</span> <span class="nav-text">可选类型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rc在努力</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
